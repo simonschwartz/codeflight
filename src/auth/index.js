@@ -11,7 +11,8 @@ export default {
     login_loading: false,
     github_code: '',
     github_token: localstorage.getItem('github-token'),
-    travis_token: localstorage.getItem('travis-token')
+    travis_token: localstorage.getItem('travis-token'),
+    user_name: 'aa'
   },
 
   checkAuth() {
@@ -63,6 +64,21 @@ export default {
         localstorage.setItem('travis-token', body.access_token);
         window.location = window.location.origin;
       })
+    })
+  },
+
+  getGithubProfile (token, callback) {
+    var options = {
+      url: 'https://api.github.com/user',
+      json: true,
+      headers: {
+        authorization: 'token ' + token
+      }
+    }
+
+    xhr(options, function (err, res, body) {
+      if (err) return callback(err)
+      return callback(null, body.name)
     })
   }
 }

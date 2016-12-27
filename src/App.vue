@@ -1,17 +1,16 @@
 <template>
   <div id="app">
     <app-header></app-header>
-    <div class="ui container">
-      <h1>{{ msg }}</h1>
-    </div>
+    <welcome-message></welcome-message>
 </template>
 
 <script>
 import auth from './auth'
 import AppHeader from './components/AppHeader.vue'
+import WelcomeMessage from './components/WelcomeMessage.vue'
 
 export default {
-  components: { AppHeader },
+  components: { AppHeader, WelcomeMessage },
   name: 'app',
   data: function () {
     return {
