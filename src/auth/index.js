@@ -8,6 +8,7 @@ export default {
 
   user: {
     authenticated: false,
+    login_loading: false,
     github_code: '',
     github_token: localstorage.getItem('github-token'),
     travis_token: localstorage.getItem('travis-token')
@@ -40,6 +41,8 @@ export default {
 
   //should refactor this to use promises?
   login(github_code) {
+    this.user.login_loading = true
+
     var options = {
       url: GATEKEEPER + '/authenticate/' + github_code,
       json: true

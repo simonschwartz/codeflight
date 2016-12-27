@@ -2,8 +2,8 @@
   <header role="banner">
     <div class="ui container">
       <h1>codeflight</h1>
-      <a class="positive ui button" v-if="user.authenticated" v-on:click="logout" href="#">Logout</a>
-      <a class="positive ui button" v-else v-bind:href="loginUrl">Log in with GitHub</a>
+      <a v-if="user.authenticated" class="positive ui button" v-on:click="logout" href="#">Logout</a>
+      <a v-else v-bind:href="loginUrl" class="positive ui button"> <div v-if="user.login_loading" class="ui mini active inline loader"></div> Log in with GitHub</a>
     </div>
   </header>
 </template>
@@ -50,6 +50,17 @@ header {
 
   a {
     float: right;
+
+    .ui.loader {
+      margin-right: 1em;
+
+      &:before {
+        border-color: #fff;
+      }
+      &:after {
+        //border-color: #333;
+      }
+    }
   }
 }
 
