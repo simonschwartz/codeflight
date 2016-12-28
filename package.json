@@ -13,7 +13,8 @@
     "localStorage": "^1.0.3",
     "querystring": "^0.2.0",
     "vue": "^2.1.0",
-    "xhr": "^2.3.1"
+    "xhr": "^2.3.1",
+    "moment": "^2.17.1"
   },
   "devDependencies": {
     "babel-core": "^6.0.0",
