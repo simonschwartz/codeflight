@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <app-header></app-header>
-    <welcome-message></welcome-message>
-    <project-list></project-list>
+    <welcome-message v-bind:username="user.user_name" v-bind:userlogin="user.user_login"></welcome-message>
+    <project-list v-bind:userlogin="user.user_login"></project-list>
 </template>
 
 <script>
@@ -16,10 +16,12 @@ export default {
   name: 'app',
   data: function () {
     return {
-      msg: 'AUTH:'+auth.user.authenticated,
+      user: auth.user
     }
   },
   methods: {
+    //auth methods
+    //get name method
   }
 }
 </script>

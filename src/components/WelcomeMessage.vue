@@ -1,45 +1,18 @@
 <template>
-    <div class="ui container">
-      <h2>Welcome {{user_name}}</h2>
-    </div>
+  <div class="ui container">
+    <h2 v-if="username">Welcome {{username}}</h2>
+    <h2 v-else>Welcome {{userlogin}}</h2>
+  </div>
 </template>
 
 <script>
-var qs = require('querystring')
-var xhr = require('xhr')
-import auth from '../auth'
 
 export default {
   data() {
     return {
-      user_name: null
     }
   },
-  created: function() {
-    this.fetchName()
-  },
-  methods: {
-    fetchName: function () {
-      var self = this
-
-      var options = {
-        url: 'https://api.github.com/user',
-        json: true,
-        headers: {
-          authorization: 'token ' + localStorage.getItem('github-token')
-        }
-      }
-
-      xhr(options, function (err, res, body) {
-        if (err) return callback(err)
-        if (body.name) {
-          self.user_name = body.name
-        } else {
-          self.user_name = body.login
-        }
-      })
-    }
-  }
+  props: ['username', 'userlogin']
 }
 </script>
 
