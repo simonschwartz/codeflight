@@ -24,7 +24,7 @@
 var qs = require('querystring')
 var xhr = require('xhr')
 var moment = require('moment');
-import auth from '../auth'
+import localstorage from 'localStorage'
 
 export default {
   data() {
@@ -32,8 +32,18 @@ export default {
       projects: null
     }
   },
+  props: ['userlogin'],
+  watch : {
+    //when user login is set - fetch projects (login)
+    userlogin : function () {
+      this.fetchProjects()
+    }
+  },
   created: function() {
-    this.fetchProjects()
+    //if user login is present, refetch projects (page refresh)
+    if (localstorage.getItem('user-login')) {
+      this.fetchProjects()
+    }
   },
   filters: {
     formatDate: function(v) {
@@ -43,9 +53,8 @@ export default {
   methods: {
     fetchProjects: function () {
       var self = this
-
       var options = {
-        url: 'https://api.travis-ci.org/repos/' + 'simonschwartz',
+        url: 'https://api.travis-ci.org/repos/' +this.userlogin,
         json: true,
         headers: {
           'Content-Type': 'application/json',

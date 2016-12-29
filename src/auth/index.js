@@ -12,7 +12,8 @@ export default {
     github_code: '',
     github_token: localstorage.getItem('github-token'),
     travis_token: localstorage.getItem('travis-token'),
-    user_name: 'aa'
+    user_name: localstorage.getItem('user-name'),
+    user_login: localstorage.getItem('user-login')
   },
 
   checkAuth() {
@@ -26,9 +27,9 @@ export default {
 
   logout() {
     localStorage.removeItem('github-token')
-    this.user.github_token = ''
     localStorage.removeItem('travis-token')
-    this.user.travis_token = ''
+    localStorage.removeItem('user-name')
+    localStorage.removeItem('user-login')
     this.user.authenticated = false
   },
 
@@ -67,18 +68,22 @@ export default {
     })
   },
 
-  getGithubProfile (token, callback) {
+  getGithubProfile (github_token) {
+    var self = this
     var options = {
       url: 'https://api.github.com/user',
       json: true,
       headers: {
-        authorization: 'token ' + token
+        authorization: 'token ' + github_token
       }
     }
 
     xhr(options, function (err, res, body) {
       if (err) return callback(err)
-      return callback(null, body.name)
+      localstorage.setItem('user-name', body.name);
+      localstorage.setItem('user-login', body.login);
+      self.user.user_name = body.name
+      self.user.user_login = body.login
     })
   }
 }

@@ -18,7 +18,18 @@ const LOGINURL = OAUTH_API_URL + OAUTH_CLIENT_ID + OAUTH_SCOPE+ '&redirect_uri='
 
 import auth from '../auth'
 
+  
   auth.checkAuth()
+  var code = auth.getCode()
+
+  if (!auth.user.authenticated && code) {
+    auth.login(auth.user.github_code)
+  }
+
+  if (auth.user.authenticated && !auth.user.user_login) {
+    auth.getGithubProfile(auth.user.github_token)
+  }
+
 
   export default {
     data() {
@@ -56,9 +67,6 @@ header {
 
       &:before {
         border-color: #fff;
-      }
-      &:after {
-        //border-color: #333;
       }
     }
   }
