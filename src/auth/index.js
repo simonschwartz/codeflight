@@ -1,3 +1,4 @@
+import {router} from '../main.js'
 import localstorage from 'localStorage'
 import xhr from 'xhr'
 import qs from 'querystring'
@@ -15,12 +16,16 @@ export default {
     user_name: localstorage.getItem('user-name'),
     user_login: localstorage.getItem('user-login')
   },
+  methods: {
+    test: function () {
+      this.$router.push('dashboard')
+    }
+  },
 
   checkAuth() {
     if(this.user.github_token && this.user.travis_token) {
       this.user.authenticated = true
-    }
-    else {
+    } else {
       this.user.authenticated = false
     }
   },
@@ -43,6 +48,7 @@ export default {
 
   //should refactor this to use promises?
   login(github_code) {
+    var self = this
     this.user.login_loading = true
 
     var options = {

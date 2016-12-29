@@ -1,23 +1,23 @@
 <template>
   <div id="app">
     <app-header></app-header>
-    <welcome-message v-bind:username="user.user_name" v-bind:userlogin="user.user_login"></welcome-message>
-    <project-list v-bind:userlogin="user.user_login"></project-list>
+    <router-view></router-view>
 </template>
 
 <script>
 import auth from './auth'
 import AppHeader from './components/AppHeader.vue'
-import WelcomeMessage from './components/WelcomeMessage.vue'
-import ProjectList from './components/ProjectList.vue'
+import {router} from './main'
 
 export default {
-  components: { AppHeader, WelcomeMessage, ProjectList },
+  components: { AppHeader },
   name: 'app',
   data: function () {
     return {
-      user: auth.user
+      user: auth.user,
     }
+  },
+  watch: {
   },
   methods: {
     //auth methods

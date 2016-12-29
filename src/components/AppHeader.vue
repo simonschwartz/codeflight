@@ -17,34 +17,37 @@ const OAUTH_REDIRECT_URI = 'http://localhost:8080/'
 const LOGINURL = OAUTH_API_URL + OAUTH_CLIENT_ID + OAUTH_SCOPE+ '&redirect_uri=' + OAUTH_REDIRECT_URI
 
 import auth from '../auth'
+import {router} from '../main'
 
-  
-  auth.checkAuth()
-  var code = auth.getCode()
-
-  if (!auth.user.authenticated && code) {
-    auth.login(auth.user.github_code)
-  }
-
-  if (auth.user.authenticated && !auth.user.user_login) {
-    auth.getGithubProfile(auth.user.github_token)
-  }
-
-
-  export default {
-    data() {
-      return {
-        user: auth.user,
-        loginUrl: LOGINURL
-      }
+export default {
+  data() {
+    return {
+      user: auth.user,
+      loginUrl: LOGINURL
+    }
+  },
+  created: function() {
+    auth.checkAuth()
+    auth.getCode()
+    if (!auth.user.authenticated && auth.user.github_code) {
+      auth.login(auth.user.github_code)
+    }
+    if (auth.user.authenticated && !auth.user.user_login) {
+      auth.getGithubProfile(auth.user.github_token)
+      this.$router.push('dashboard')
+    }
+  },
+  methods: {
+    logout: function(e) {
+      e.preventDefault()
+      auth.logout()
+      this.$router.push('/')
     },
-    methods: {
-      logout: function(e) {
-        e.preventDefault()
-        auth.logout()
-      }
+    login: function() {
+
     }
   }
+}
 </script>
 
 <style lang="scss" scoped>
