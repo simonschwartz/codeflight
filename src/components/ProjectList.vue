@@ -21,8 +21,6 @@
 
 <script>
 
-var qs = require('querystring')
-var xhr = require('xhr')
 var moment = require('moment');
 import localstorage from 'localStorage'
 
@@ -52,10 +50,9 @@ export default {
   },
   methods: {
     fetchProjects: function () {
-      var self = this
+      var url = 'https://api.travis-ci.org/repos/' +this.userlogin
       var options = {
         url: 'https://api.travis-ci.org/repos/' +this.userlogin,
-        json: true,
         headers: {
           'Content-Type': 'application/json',
           'Authorization': 'token ' + localStorage.getItem('travis-token'),
@@ -65,10 +62,12 @@ export default {
             'active': true
           }
         }
-      };
-      xhr(options, function (err, resp, body) {
-        if (err) return callback(err)
-        self.projects = body
+      }
+      this.$http.get(url, options).then((response) => {
+        this.projects = response.body
+      }, (response) => {
+        //error callback
+        console.log(response)
       });
     }
   }
