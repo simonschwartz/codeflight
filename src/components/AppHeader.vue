@@ -30,10 +30,10 @@ export default {
     auth.checkAuth()
     auth.getCode()
     if (!auth.user.authenticated && auth.user.github_code) {
-      auth.login(auth.user.github_code)
+      auth.login(this, auth.user.github_code)
     }
     if (auth.user.authenticated && !auth.user.user_login) {
-      auth.getGithubProfile(auth.user.github_token)
+      auth.getGithubProfile(this, auth.user.github_token)
       this.$router.push('dashboard')
     }
   },
