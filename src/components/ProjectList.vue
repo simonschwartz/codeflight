@@ -52,11 +52,6 @@ export default {
     fetchProjects: function () {
       var url = 'https://api.travis-ci.org/repos/' +this.userlogin
       var options = {
-        url: 'https://api.travis-ci.org/repos/' +this.userlogin,
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'token ' + localStorage.getItem('travis-token'),
-        },
         data : {
           "repo": {
             'active': true

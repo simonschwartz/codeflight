@@ -3,6 +3,7 @@ import App from './App.vue'
 import AppHeader from './components/AppHeader.vue'
 import Home from './components/Home.vue'
 import Dashboard from './components/Dashboard.vue'
+import CreateProject from './components/CreateProject.vue'
 import VueRouter from 'vue-router'
 import VueResource from 'vue-resource'
 Vue.use(VueResource)
@@ -14,6 +15,7 @@ var router = new VueRouter({
   routes: [
     { path: '/', component: Home },
     { path: '/dashboard', component: Dashboard },
+    { path: '/create-project', component: CreateProject },
     { path: '*', redirect: '/home'}
   ]
 })

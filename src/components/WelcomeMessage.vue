@@ -1,5 +1,5 @@
 <template>
-  <div class="ui container">
+  <div>
     <h2 v-if="username">Welcome {{username}}</h2>
     <h2 v-else>Welcome {{userlogin}}</h2>
   </div>
@@ -18,13 +18,10 @@ export default {
 
 <style lang="scss" scoped>
 
-.container {
-  margin-top: 2.5em;
-
-  h2 {
-    font-size: 1.55rem;
-    font-weight: 400;
-  }
+h2 {
+  font-size: 1.55rem;
+  font-weight: 400;
+  margin-bottom: 1em;
 }
 
 </style>
