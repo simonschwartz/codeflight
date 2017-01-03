@@ -4,6 +4,9 @@
       <h1>codeflight</h1>
       <a v-if="user.authenticated" class="positive ui button" v-on:click="logout" href="#">Logout</a>
       <a v-else v-bind:href="loginUrl" class="positive ui button"> <div v-if="user.login_loading" class="ui mini active inline loader"></div> Log in with GitHub</a>
+      <router-link v-if="user.authenticated && matchRoute" to="/dashboard">
+        <button class="ui positive basic button">Go to dashboard</button>
+      </router-link>
     </div>
   </header>
 </template>
@@ -35,6 +38,11 @@ export default {
     if (auth.user.authenticated && !auth.user.user_login) {
       auth.getGithubProfile(this, auth.user.github_token)
       this.$router.push('dashboard')
+    }
+  },
+  computed: {
+  	matchRoute: function() {
+    	return this.$route.path == '/';
     }
   },
   methods: {
