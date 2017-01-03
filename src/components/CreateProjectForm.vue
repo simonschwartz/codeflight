@@ -8,7 +8,10 @@
       <label for="project_name">Project name</label>
       <input v-model="project_name" type="text" id="project_name" placeholder="your-project-name">
     </div>
-    <button v-on:click="create" class="ui submit button" type="submit">Create new project</button>
+    <button v-on:click="create" class="ui submit button positive" type="submit">Create new project</button>
+    <router-link to="/dashboard">
+      <button class="ui button basic secondary">Cancel</button>
+    </router-link>
   </form>
 </div>
 </template>
