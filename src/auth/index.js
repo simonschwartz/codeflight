@@ -2,7 +2,7 @@ import {router} from '../main.js'
 import localstorage from 'localStorage'
 import qs from 'querystring'
 
-const GATEKEEPER = 'http://localhost:9999'
+const GATEKEEPER = 'https://codeflight-gatekeeper-staging.herokuapp.com'
 
 export default {
 
@@ -83,5 +83,17 @@ export default {
       //error callback
       console.log(response)
     });
+  },
+
+  getGithubAuthHeader() {
+    return {
+      'Authorization': 'token ' + localStorage.getItem('github-token')
+    }
+  },
+
+  getTravisAuthHeader() {
+    return {
+      'Authorization': 'token ' + localStorage.getItem('travis-token')
+    }
   }
 }
