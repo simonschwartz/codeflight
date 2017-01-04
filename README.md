@@ -2,6 +2,8 @@
 
 > codeflight makes it easy for developers to setup a rapid prototyping environment
 
+https://travis-ci.org/simonschwartz/codeflight.svg?branch=master
+
 ## Build Setup
 
 ``` bash
