@@ -1,33 +1,37 @@
 <template>
-  <div class="ui container">
-    <ul class="ui relaxed divided list">
-      <li v-for="project in projects" v-if="project.description == 'built with name'" class="item">
 
-        <a v-bind:href="'https://travis-ci.org/'+project.slug">
-          <span v-if="project.last_build_status == 1">Broken</span>
-          <span v-if="project.last_build_status == 0">Running</span>
-          <span v-else>Stopped</span>
-        </a>
+  <div v-if="projects_loading" class="ui inline active loader"></div>
 
-        <div class="content">
-          <a v-bind:href="'https://github.com/'+project.slug" class="header">{{project.slug}}</a>
-          <div class="description">Updated {{project.last_build_finished_at | formatDate }}</div>
-        </div>
-
-      </li>
-    </ul>
+  <div v-else>
+    <div v-if="projects" class="ui container project-list">
+      <create-project-button></create-project-button>
+      <ul class="ui relaxed divided list">
+        <project-list-item
+          v-for="item in projects"
+          :project="item"
+          v-if="item.description == 'built with name'">
+        </project-list-item>
+      </ul>
+    </div>
+    <div v-else class="ui container project-list-empty">
+      <p>You don't have any projects yet. Let's change that!</p>
+      <create-project-button></create-project-button>
+    </div>
   </div>
+
 </template>
 
 <script>
-
-var moment = require('moment');
 import localstorage from 'localStorage'
+import CreateProjectButton from './CreateProjectButton.vue'
+import ProjectListItem from './ProjectListItem.vue'
 
 export default {
+  components: {  CreateProjectButton, ProjectListItem },
   data() {
     return {
-      projects: null
+      projects: null,
+      projects_loading: true
     }
   },
   props: ['userlogin'],
@@ -43,11 +47,6 @@ export default {
       this.fetchProjects()
     }
   },
-  filters: {
-    formatDate: function(v) {
-      return moment(v).fromNow()
-    }
-  },
   methods: {
     fetchProjects: function () {
       var url = 'https://api.travis-ci.org/repos/' +this.userlogin
@@ -60,10 +59,14 @@ export default {
       }
       this.$http.get(url, options).then((response) => {
         this.projects = response.body
+        this.projects_loading = false
       }, (response) => {
         //error callback
         console.log(response)
       });
+    },
+    checkTravisLinked: function () {
+      //check is travis is linked to GH account
     }
   }
 }
