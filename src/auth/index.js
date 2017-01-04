@@ -84,7 +84,7 @@ export default {
       console.log(response)
     });
   },
-
+  
   getGithubAuthHeader() {
     return {
       'Authorization': 'token ' + localStorage.getItem('github-token')
