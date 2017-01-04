@@ -1,8 +1,8 @@
 # Codeflight
 
-> codeflight makes it easy for developers to setup a rapid prototyping environment
+[![Build Status](https://travis-ci.org/simonschwartz/codeflight.svg?branch=master)](https://travis-ci.org/simonschwartz/codeflight)
 
-https://travis-ci.org/simonschwartz/codeflight.svg?branch=master
+> codeflight makes it easy for developers to setup a rapid prototyping environment
 
 ## Build Setup
 
