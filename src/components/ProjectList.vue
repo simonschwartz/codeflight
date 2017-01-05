@@ -3,7 +3,7 @@
   <div v-if="projects_loading" class="ui inline active loader"></div>
 
   <div v-else>
-    <div v-if="projects" class="ui container project-list">
+    <div v-if="projects.length>0" class="ui container project-list">
       <create-project-button></create-project-button>
       <ul class="ui relaxed divided list">
         <project-list-item
@@ -30,7 +30,7 @@ export default {
   components: {  CreateProjectButton, ProjectListItem },
   data() {
     return {
-      projects: null,
+      projects: [],
       projects_loading: true
     }
   },
@@ -79,6 +79,7 @@ export default {
     margin-top: 2em;
 
     ul {
+      margin-top: 1.5em;
       margin-left: 0;
 
       li:before {
