@@ -1,7 +1,6 @@
 <template>
   <div class="ui container">
   <welcome-message v-bind:username="user.user_name" v-bind:userlogin="user.user_login"></welcome-message>
-  <create-project-button></create-project-button>
   <project-list v-bind:userlogin="user.user_login"></project-list>
 </div>
 </template>
